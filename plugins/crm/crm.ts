@@ -124,7 +124,7 @@ export class Crm {
   /** Open the CRM over what the store holds; the first time (nothing saved) it starts from the seed and saves it at once. */
   static async open(adapters: CrmAdapters): Promise<Crm> {
     const saved = await adapters.store.load()
-    const crm = new Crm(adapters, saved ?? seed())
+    const crm = new Crm(adapters, saved ?? seed(adapters.clock()))
     if (saved === undefined) await adapters.store.save(crm.current)
     return crm
   }
