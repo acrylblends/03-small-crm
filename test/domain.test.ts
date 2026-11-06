@@ -83,8 +83,13 @@ describe('the seed', () => {
     assert.ok(states.includes('today'))
   })
 
+  test('is laid around the day of the first start, so a later first start still has a follow-up due today and one overdue', async () => {
+    const crm = await Crm.open({ store: memoryStore<CrmState>(), clock: () => new Date(2027, 2, 10, 9, 0), newId: (kind) => kind })
+    assert.deepEqual(crm.followUps().map((f) => f.state), ['overdue', 'today', 'later', 'later', 'later'])
+  })
+
   test('an existing state is opened as it is, and not saved again', async () => {
-    const state = seed()
+    const state = seed(NOW)
     state.deals = state.deals.slice(0, 2)
     const { crm, store } = await open(state)
     assert.equal(crm.deals().length, 2)
@@ -206,7 +211,7 @@ describe('the JSON file store', () => {
       const file = join(dir, 'crm.json')
       const store = jsonFileStore<CrmState>(file, 'Small CRM')
       assert.equal(await store.load(), undefined)
-      await store.save(seed())
+      await store.save(seed(NOW))
       assert.equal((await store.load())?.deals.length, 7)
       assert.match(await readFile(file, 'utf8'), /"version": 1/)
       await writeFile(file, '{"version":2}')
