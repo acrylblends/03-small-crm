@@ -42,7 +42,7 @@ describe('pipeline', () => {
       assert.deepEqual(noticeOf(bad), { kind: 'error', text: 'The deal title is needed.', path: '/pipeline' })
       assert.match(bad.headers.get('location') ?? '', /new=1/)
       const ok = await app.post('/pipeline/deals', { companyId: 'company-acme', title: 'Spare parts portal', value: '8000', closeDate: '2026-12-01', stage: 'proposal', ownerId: 'owner-jl' })
-      assert.equal(noticeOf(ok).kind, 'ok')
+      assert.deepEqual(noticeOf(ok), { kind: 'ok', text: 'Spare parts portal for Acme Robotics was added to Proposal.', path: '/pipeline' })
       const deal = app.root.crm.deals().find((d) => d.title === 'Spare parts portal')
       assert.equal(deal?.stage, 'proposal')
       assert.match(ok.headers.get('location') ?? '', new RegExp(`deal=${deal?.id}`))

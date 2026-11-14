@@ -120,7 +120,7 @@ export function apply(ctx: Context): void {
           stage: form.stage,
           ownerId: form.ownerId,
         })
-        return c.redirect(shell.url(`/pipeline?deal=${encodeURIComponent(deal.id)}`, { kind: 'ok', text: `${crm.company(deal.companyId).name} was added to ${STAGE_LABEL[deal.stage]}.` }), 303)
+        return c.redirect(shell.url(`/pipeline?deal=${encodeURIComponent(deal.id)}`, { kind: 'ok', text: `${deal.title} for ${crm.company(deal.companyId).name} was added to ${STAGE_LABEL[deal.stage]}.` }), 303)
       } catch (error) {
         if (!(isRefusal(error))) throw error
         const sep = back.includes('?') ? '&' : '?'
