@@ -78,4 +78,4 @@ td .who{display:flex;gap:9px;align-items:center}td .who b{display:block}td .who 
 .crumbs{font-size:11px;color:var(--muted);margin-bottom:8px}.crumbs a{color:var(--blue)}
 .confirm{border:1px solid var(--red);background:var(--card)}
 @media(max-width:1150px){.app{grid-template-columns:170px minmax(0,1fr)}.inspector{display:none}.app.no-aside{grid-template-columns:170px minmax(0,1fr)}}
-@media(max-width:750px){.app,.app.no-aside{grid-template-columns:1fr}.side{display:none}.main{padding:18px}.board{grid-template-columns:1fr 1fr}.totals{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}}`
+@media(max-width:750px){.app,.app.no-aside{grid-template-columns:1fr}.side{flex-direction:row;flex-wrap:wrap;padding:8px 12px;border-right:0;border-bottom:1px solid var(--line)}.side>:not(nav){display:none}.side nav{flex-direction:row;flex-wrap:wrap}.side nav a{padding:6px 9px}.main{padding:18px}.board{grid-template-columns:1fr 1fr}.totals{grid-template-columns:1fr 1fr}.two{grid-template-columns:1fr}}`
